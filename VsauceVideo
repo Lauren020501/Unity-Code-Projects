@@ -1,0 +1,54 @@
+public class vsauceVideo : MonoBehaviour 
+{
+	void Start()
+	{
+		//Fetch the Renderer from the GameObject
+		Renderer rend = GetComponent<Renderer>();
+
+		//Set the main Color of the Material to black
+		rend.material.shader = Shader.Find("_Color");
+		rend.material.SetColor("_Color", Color.black);
+
+		//Find the Specular shader and change its Color to black
+		rend.material.shader = Shader.Find("Specular");
+		rend.material.SetColor("_SpecColor", Color.black);
+	}
+	void OnTriggerEnter(Collider other)
+	{
+		var vp = GetComponent<UnityEngine.Video.VideoPlayer>();
+		Renderer rend = GetComponent<Renderer>();
+
+		if (other.gameObject.CompareTag("Player"))
+		{
+			//Set the main Color of the Material to white
+			rend.material.shader = Shader.Find("_Color");
+			rend.material.SetColor("_Color", Color.white);
+
+			//Find the Specular shader and change its Color to white
+			rend.material.shader = Shader.Find("Specular");
+			rend.material.SetColor("_SpecColor", Color.white);
+
+			vp.Play ();
+		}
+	}
+
+	void OnTriggerExit(Collider other)
+	{
+		var vp = GetComponent<UnityEngine.Video.VideoPlayer>();
+		Renderer rend = GetComponent<Renderer>();
+
+		if (other.gameObject.CompareTag("Player"))
+		{
+			vp.Pause ();
+
+			//Set the main Color of the Material to black
+			rend.material.shader = Shader.Find("_Color");
+			rend.material.SetColor("_Color", Color.black);
+
+			//Find the Specular shader and change its Color to black
+			rend.material.shader = Shader.Find("Specular");
+			rend.material.SetColor("_SpecColor", Color.black);
+		}
+	}
+
+}
